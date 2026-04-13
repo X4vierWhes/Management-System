@@ -18,12 +18,12 @@ CREATE TABLE blocks (
 CREATE TABLE units (
                           id BIGSERIAL PRIMARY KEY,
                           block_id BIGINT REFERENCES blocks(id),
-                          generate_identification VARCHAR(20) NOT NULL,
+                          identification VARCHAR(20) NOT NULL,
                           floor INT NOT NULL
 );
 
 CREATE TABLE resident_unit (
                                  user_id BIGINT REFERENCES users(id),
-                                 unit_id BIGINT REFERENCES users(id),
+                                 unit_id BIGINT REFERENCES units(id),
                                  PRIMARY KEY (user_id, unit_id)
 );
