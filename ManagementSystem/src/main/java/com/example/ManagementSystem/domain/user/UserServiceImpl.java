@@ -4,6 +4,7 @@ import com.example.ManagementSystem.application.auth.dto.SignInDTO;
 import com.example.ManagementSystem.application.auth.dto.SignUpDTO;
 import com.example.ManagementSystem.domain.utils.PasswordRegex;
 import com.example.ManagementSystem.infrastructure.exception.PasswordNotMatchException;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -40,12 +41,14 @@ public class UserServiceImpl implements  UserService {
         if (!alreadySaved.isEmpty())
             throw new ResponseStatusException(HttpStatus.CONFLICT, "The username is taken!");
 
-        User user = new User(dto);
+        User user = new User();
+        user.updateUser(dto);
         user.setPassword(passwordEncoder.encode(dto.passwd()));
         return userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public Optional<User> signIn(SignInDTO dto) {
         Optional<User> alreadySaved = userRepository.findByUsernameAndIsActive(dto.username(), true);
 
@@ -84,11 +87,13 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
+    @Transactional
     public int shadowDelete(String username) {
         return this.userRepository.shadowDelete(username);
     }
 
     @Override
+    @Transactional
     public void delete(String username) {
         User user = this.getUser(username);
         this.userRepository.delete(user);

@@ -8,12 +8,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Getter
 @Setter
 @Table(name= "users")
@@ -35,7 +36,7 @@ public class User {
 
     private Boolean isActive = true;
 
-    public User(SignUpDTO dto) {
+    public void updateUser(SignUpDTO dto) {
         setEmail(dto.email());
         setUsername(dto.username());
         //setPassword(passwordEncoder.encode(dto.passwd()));

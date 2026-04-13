@@ -15,8 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.isActive = true and (u.username = :username or u.email = :email)")
     List<User> findByUsernameOrEmailAndIsActive(String username, String email);
 
-    @Transactional
     @Modifying
+    @Transactional
     @Query("update User u set u.isActive = false where u.username = :username")
     int shadowDelete(String username);
 
