@@ -1,9 +1,11 @@
 CREATE TABLE users (
-                          id BIGSERIAL PRIMARY KEY,
-                          name VARCHAR(100) NOT NULL,
-                          email VARCHAR(100) UNIQUE NOT NULL,
-                          password VARCHAR(255) NOT NULL,
-                          profile VARCHAR(20) NOT NULL
+                       id BIGSERIAL PRIMARY KEY,
+                       username VARCHAR(100) NOT NULL,
+                       email VARCHAR(100) UNIQUE NOT NULL,
+                       password VARCHAR(255) NOT NULL,
+                       profile VARCHAR(20) NOT NULL,
+                       is_active BOOLEAN DEFAULT TRUE,
+                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE blocks (

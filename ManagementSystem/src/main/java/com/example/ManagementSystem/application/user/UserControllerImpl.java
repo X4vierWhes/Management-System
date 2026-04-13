@@ -4,8 +4,11 @@ import com.example.ManagementSystem.application.user.dto.PasswordDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
 import com.example.ManagementSystem.domain.user.User;
 import com.example.ManagementSystem.domain.user.UserService;
+import com.example.ManagementSystem.domain.utils.UserRegistration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 
 @Controller
@@ -16,6 +19,12 @@ public class UserControllerImpl implements UserController {
         this.userService = userService;
     }
 
+
+    @Override
+    public ResponseEntity<UserDTO> register(@RequestBody UserRegistration data) {
+        User newUser = userService.create(data);
+        return ResponseEntity.status(201).body(UserDTO.fromUser(newUser));
+    }
 
     @Override
     public ResponseEntity<List<UserDTO>> getAllByPrefix(String prefix) {

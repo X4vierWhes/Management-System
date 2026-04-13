@@ -18,11 +18,13 @@ public class AuthControllerImpl implements AuthController {
 
     @Override
     public ResponseEntity<Void> signUp(SignUpDTO createUserDTO) {
-        return null;
+        userService.signUp(createUserDTO);
+        return ResponseEntity.status(201).build();
     }
 
     @Override
     public ResponseEntity<CustomResponseEntity> signIn(SignInDTO signInDTO) {
-        return null;
+        userService.signIn(signInDTO);
+        return ResponseEntity.status(200).build();
     }
 }

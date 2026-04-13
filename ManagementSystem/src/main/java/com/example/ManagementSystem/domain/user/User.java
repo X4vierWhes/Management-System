@@ -2,6 +2,7 @@ package com.example.ManagementSystem.domain.user;
 
 import com.example.ManagementSystem.application.auth.dto.SignUpDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
+import com.example.ManagementSystem.domain.utils.Profile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Profile profile;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
@@ -43,6 +48,6 @@ public class User {
     }
 
     public UserDTO toDTO() {
-        return new UserDTO(this.getUsername(), this.getEmail(), this.getCreatedAt());
+        return new UserDTO(this.getUsername(), this.getEmail(),this.getProfile().name(),this.getIsActive(), this.getCreatedAt());
     }
 }
