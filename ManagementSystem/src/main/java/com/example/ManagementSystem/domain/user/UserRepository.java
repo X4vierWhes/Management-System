@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.username ilike :prefix and u.isActive = true")
     List<User> findByUsernamePrefix(String prefix);
+
+
 }

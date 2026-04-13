@@ -12,6 +12,9 @@ public interface UserController {
     @GetMapping("/{username}")
     ResponseEntity<List<UserDTO>> getAllByPrefix(@RequestParam String prefix);
 
+    @GetMapping("/{username/all}")
+    public ResponseEntity<List<UserDTO>> getAllUsers();
+
     @PatchMapping("/{username}")
     ResponseEntity<UserDTO> updatePasswd(@PathVariable String username, @RequestBody PasswordDTO dto);
 

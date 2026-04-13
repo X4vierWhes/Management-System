@@ -6,7 +6,6 @@ import com.example.ManagementSystem.domain.user.User;
 import com.example.ManagementSystem.domain.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
 import java.util.List;
 
 @Controller
@@ -16,11 +15,20 @@ public class UserControllerImpl implements UserController {
     public UserControllerImpl(UserService userService) {
         this.userService = userService;
     }
+
+
     @Override
     public ResponseEntity<List<UserDTO>> getAllByPrefix(String prefix) {
         var all = this.userService.getUsersStartsWith(prefix).stream().map(User::toDTO).toList();
 
         return ResponseEntity.ok(all);
+    }
+
+    @Override
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> users = userService.getAll();
+
+        return ResponseEntity.ok(users);
     }
 
     @Override

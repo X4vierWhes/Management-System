@@ -14,7 +14,7 @@ public record UserDTO(
         this(username, email, createdAt.toString());
     }
 
-    static UserDTO fromUser(User user) {
+    public static UserDTO fromUser(User user) {
         return new UserDTO(user.getUsername(), user.getEmail(), LocalDateTime.now());
     }
 }

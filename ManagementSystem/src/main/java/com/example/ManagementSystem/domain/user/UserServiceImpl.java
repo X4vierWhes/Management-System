@@ -2,6 +2,7 @@ package com.example.ManagementSystem.domain.user;
 
 import com.example.ManagementSystem.application.auth.dto.SignInDTO;
 import com.example.ManagementSystem.application.auth.dto.SignUpDTO;
+import com.example.ManagementSystem.application.user.dto.UserDTO;
 import com.example.ManagementSystem.domain.utils.PasswordRegex;
 import com.example.ManagementSystem.infrastructure.exception.PasswordNotMatchException;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,11 @@ public class UserServiceImpl implements  UserService {
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public List<UserDTO> getAll() {
+        return userRepository.findAll().stream().map(User::toDTO).toList();
     }
 
     @Override
