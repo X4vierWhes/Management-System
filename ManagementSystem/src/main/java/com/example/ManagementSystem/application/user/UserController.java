@@ -15,7 +15,7 @@ public interface UserController {
     @PatchMapping("/{username}")
     ResponseEntity<UserDTO> updatePasswd(@PathVariable String username, @RequestBody PasswordDTO dto);
 
-    @PatchMapping("/{username}")
+    @PatchMapping("/{username}/password")
     ResponseEntity<Void> shadowDelete(@PathVariable String username);
 
     @DeleteMapping("/{username}")
