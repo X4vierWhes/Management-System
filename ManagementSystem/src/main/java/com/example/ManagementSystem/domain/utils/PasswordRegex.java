@@ -7,19 +7,19 @@ public class PasswordRegex {
     public static List<String> validate(String passwd) {
         List<String> errors = new ArrayList<>();
 
-        //^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$
-        String length = "^{8,}";
-        String digits = "^[0-9]";
-        String letters = "^[a-zA-Z]";
-
-        if (!passwd.matches(length))
+        // Verifica o tamanho: mínimo 8 caracteres
+        if (passwd == null || passwd.length() < 8) {
             errors.add("Password length should be 8 or more characters");
+        }
 
-        if (!passwd.matches(digits))
+        assert passwd != null;
+        if (!passwd.matches(".*[0-9].*")) {
             errors.add("Password must have at least one digit");
+        }
 
-        if (!passwd.matches(letters))
+        if (!passwd.matches(".*[a-zA-Z].*")) {
             errors.add("Password must have at least one letter");
+        }
 
         return errors;
     }
