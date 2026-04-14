@@ -54,7 +54,6 @@ public class User {
     public void updateUser(SignUpDTO dto) {
         setEmail(dto.email());
         setUsername(dto.username());
-        //setPassword(passwordEncoder.encode(dto.passwd()));
     }
 
     public UserDTO toDTO() {
