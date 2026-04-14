@@ -1,26 +1,24 @@
 package com.example.ManagementSystem.domain.unit;
 
+import com.example.ManagementSystem.application.user.dto.UserDTO;
+import com.example.ManagementSystem.domain.user.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UnitRepository {
-    Optional<Unit> findByResidentId(Long id);
+public interface UnitRepository extends JpaRepository<Unit, Long> {
 
-    Optional<Unit> findById(Long id);
-
-    void save(Unit unit);
-
-    List<Unit> findAll();
+    List<Unit> findByResidents(User resident);
 
     List<Unit> findByFloor(int floor);
 
-    Unit findByIdentification(String identification);
+    Optional<Unit> findByIdentification(String identification);
 
-    List<Unit> findByBlockId(Long blockId);
+    List<Unit> findByBlock_Id(Long blockId);
 
-    List<Unit> findByFloorAndBlockId(Integer floor, Integer blockId);
+    List<Unit> findByFloorAndBlock_Id(int floor, Long blockId);
 
 }
