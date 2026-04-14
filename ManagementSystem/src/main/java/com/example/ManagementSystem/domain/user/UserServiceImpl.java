@@ -80,10 +80,12 @@ public class UserServiceImpl implements  UserService {
             if (!alreadySaved.isEmpty())
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "The username is taken!");
 
+            UserDTO userDto = UserDTO.fromSignUpDTO(dto);
+
             User user = new User();
             user.updateUser(dto);
             user.setPassword(passwordEncoder.encode(dto.password()));
-            user.setProfile(Profile.valueOf(String.valueOf(dto.profile())));
+            user.setProfile(Profile.valueOf(String.valueOf(userDto.profile()).toUpperCase()));
             user.setCreatedAt(java.time.LocalDateTime.now());
             userRepository.save(user);
     }
