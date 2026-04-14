@@ -18,4 +18,8 @@ public record BlockDTO(
         block.setAptPerFloor(Integer.parseInt(aptPerFloor));
         return block;
     }
+
+    public static BlockDTO fromBlock(Block block) {
+        return new BlockDTO(block.getIdentification(), String.valueOf(block.getAmtFloors()), String.valueOf(block.getAptPerFloor()));
+    }
 }

@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class BlockServiceImpl implements BlockService {
 
@@ -12,6 +14,12 @@ public class BlockServiceImpl implements BlockService {
     public BlockServiceImpl(BlockRepository blockRepository) {
         this.blockRepository = blockRepository;
     }
+
+    @Override
+    public List<Block> findAll() {
+        return blockRepository.findAll();
+    }
+
     @Override
     public Block findByIdentification(String identification) {
         return blockRepository.findByIdentification(identification).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Block not found with identification: " + identification));

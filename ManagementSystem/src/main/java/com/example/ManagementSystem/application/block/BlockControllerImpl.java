@@ -6,12 +6,19 @@ import com.example.ManagementSystem.domain.block.BlockService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 public class BlockControllerImpl implements BlockController{
     private final BlockService blockService;
 
     public BlockControllerImpl(BlockService blockService) {
         this.blockService = blockService;
+    }
+
+    @Override
+    public ResponseEntity<List<BlockDTO>> getAllBlocks() {
+        return ResponseEntity.ok(blockService.findAll().stream().map(BlockDTO::fromBlock).toList());
     }
 
     @Override
