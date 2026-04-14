@@ -1,7 +1,6 @@
 package com.example.ManagementSystem.domain.unit;
 
 import com.example.ManagementSystem.application.user.dto.UserDTO;
-import com.example.ManagementSystem.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,8 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface UnitRepository extends JpaRepository<Unit, Long> {
-
-    List<Unit> findByResidents(User resident);
+    List<Unit> findByResidents_Id(Long userId);
 
     List<Unit> findByFloor(int floor);
 

@@ -13,42 +13,42 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public Unit findByResidentId(Long id) {
-        return null;
+    public List<Unit> findByResidentId(Long id) {
+        return unitRepository.findByResidents_Id(id);
     }
 
     @Override
     public Unit findById(Long id) {
-        return null;
+        return unitRepository.findById(id).orElseThrow(() -> new RuntimeException("Unit not found with id: " + id));
     }
 
     @Override
     public void save(Unit unit) {
-
+        unitRepository.save(unit);
     }
 
     @Override
     public List<Unit> findAll() {
-        return List.of();
+        return unitRepository.findAll();
     }
 
     @Override
     public List<Unit> findByFloor(int floor) {
-        return List.of();
+        return unitRepository.findByFloor(floor);
     }
 
     @Override
     public Unit findByIdentification(String identification) {
-        return null;
+        return unitRepository.findByIdentification(identification).orElseThrow(() -> new RuntimeException("Unit not found with identification: " + identification));
     }
 
     @Override
     public List<Unit> findByBlockId(Long blockId) {
-        return List.of();
+        return unitRepository.findByBlock_Id(blockId);
     }
 
     @Override
-    public List<Unit> findByFloorAndBlockId(Integer floor, Integer blockId) {
-        return List.of();
+    public List<Unit> findByFloorAndBlockId(Integer floor, Long blockId) {
+        return unitRepository.findByFloorAndBlock_Id(floor, blockId);
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UnitService {
-    Unit findByResidentId(Long id);
+    List<Unit> findByResidentId(Long id);
 
     Unit findById(Long id);
 
@@ -18,5 +18,5 @@ public interface UnitService {
 
     List<Unit> findByBlockId(Long blockId);
 
-    List<Unit> findByFloorAndBlockId(Integer floor, Integer blockId);
+    List<Unit> findByFloorAndBlockId(Integer floor, Long blockId);
 }
