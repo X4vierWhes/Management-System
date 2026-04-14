@@ -28,8 +28,8 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<UserDTO> updateUser(String username, UserDTO data) {
-
-        return null;
+        User newUser = userService.updateUser(username, data);
+        return ResponseEntity.ok(UserDTO.fromUser(newUser));
     }
 
     @Override
