@@ -16,6 +16,4 @@ public interface AuthController {
 
     @PostMapping("/signin")
     ResponseEntity<CustomResponseEntity> signIn(@RequestBody @Valid SignInDTO signInDTO);
-
-
 }

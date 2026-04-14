@@ -1,7 +1,9 @@
 package com.example.ManagementSystem.application.auth.dto;
 
+import com.example.ManagementSystem.domain.utils.Profile;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record SignUpDTO(
         @NotBlank(message = "username must not be empty")
@@ -10,6 +12,8 @@ public record SignUpDTO(
         @Email
         String email,
         @NotBlank(message = "password is mandatory")
-        String passwd
+        String password,
+        @NotNull(message = "O perfil (profile) é obrigatório")
+        Profile profile
 ) {
 }

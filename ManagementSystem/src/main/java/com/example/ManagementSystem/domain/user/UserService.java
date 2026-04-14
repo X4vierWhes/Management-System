@@ -20,7 +20,7 @@ public interface UserService {
 
     User save(SignUpDTO dto);
 
-    Optional<User> signIn(SignInDTO dto);
+    Optional<UserDTO> signIn(SignInDTO dto);
 
     void signUp(SignUpDTO dto);
 

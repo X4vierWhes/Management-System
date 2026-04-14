@@ -56,22 +56,21 @@ public class UserServiceImpl implements  UserService {
 
         User user = new User();
         user.updateUser(dto);
-        user.setPassword(passwordEncoder.encode(dto.passwd()));
+        user.setPassword(passwordEncoder.encode(dto.password()));
         return userRepository.save(user);
     }
 
     @Override
     @Transactional
-    public Optional<User> signIn(SignInDTO dto) {
-        Optional<User> alreadySaved = userRepository.findByUsernameAndIsActive(dto.username(), true);
+    public Optional<UserDTO> signIn(SignInDTO dto) {
+        User user = userRepository.findByUsernameAndIsActive(dto.username(), true)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username ou senha incorretos"));
 
-        if (alreadySaved.isEmpty())
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The username or password is incorrect!");
+        if (!passwordEncoder.matches(dto.password(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username ou senha incorretos");
+        }
 
-        if (passwordEncoder.matches(dto.password(), alreadySaved.get().getPassword()))
-            return alreadySaved;
-
-        return Optional.empty();
+        return Optional.ofNullable(user.toDTO());
     }
 
     @Override
@@ -83,7 +82,9 @@ public class UserServiceImpl implements  UserService {
 
             User user = new User();
             user.updateUser(dto);
-            user.setPassword(passwordEncoder.encode(dto.passwd()));
+            user.setPassword(passwordEncoder.encode(dto.password()));
+            user.setProfile(Profile.valueOf(String.valueOf(dto.profile())));
+            user.setCreatedAt(java.time.LocalDateTime.now());
             userRepository.save(user);
     }
 
