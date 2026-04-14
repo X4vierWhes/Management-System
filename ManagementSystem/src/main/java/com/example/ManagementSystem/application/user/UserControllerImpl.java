@@ -27,6 +27,12 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
+    public ResponseEntity<UserDTO> updateUser(String username, UserDTO data) {
+
+        return null;
+    }
+
+    @Override
     public ResponseEntity<List<UserDTO>> getAllByPrefix(String prefix) {
         var all = this.userService.getUsersStartsWith(prefix).stream().map(User::toDTO).toList();
 
@@ -37,6 +43,12 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAll();
 
+        return ResponseEntity.ok(users);
+    }
+
+    @Override
+    public ResponseEntity<List<UserDTO>> getAllActiveUsers() {
+        List<UserDTO> users = userService.getByIsActive(true);
         return ResponseEntity.ok(users);
     }
 

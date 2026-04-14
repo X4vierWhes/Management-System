@@ -7,7 +7,6 @@ public class PasswordRegex {
     public static List<String> validate(String passwd) {
         List<String> errors = new ArrayList<>();
 
-        // Verifica o tamanho: mínimo 8 caracteres
         if (passwd == null || passwd.length() < 8) {
             errors.add("Password length should be 8 or more characters");
         }

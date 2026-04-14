@@ -10,8 +10,6 @@ import java.util.List;
 
 @RequestMapping("/users")
 public interface UserController {
-    @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@RequestBody UserRegistration data);
 
     @GetMapping("/{username}")
     ResponseEntity<List<UserDTO>> getAllByPrefix(@RequestParam String prefix);
@@ -19,7 +17,16 @@ public interface UserController {
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers();
 
-    @PatchMapping("/{username}")
+    @GetMapping("/all/active")
+    public ResponseEntity<List<UserDTO>> getAllActiveUsers();
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDTO> register(@RequestBody UserRegistration data);
+
+    @PostMapping("/{username}/update")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String username, @RequestBody UserDTO data);
+
+    @PatchMapping("/{username}/update/password")
     ResponseEntity<UserDTO> updatePasswd(@PathVariable String username, @RequestBody PasswordDTO dto);
 
     @PatchMapping("/{username}/disable")

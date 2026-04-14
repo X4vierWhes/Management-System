@@ -19,11 +19,13 @@ CREATE TABLE units (
                           id BIGSERIAL PRIMARY KEY,
                           block_id BIGINT REFERENCES blocks(id),
                           identification VARCHAR(20) NOT NULL,
-                          floor INT NOT NULL
+                          floor INT NOT NULL,
+                          is_empty BOOLEAN DEFAULT TRUE
+
 );
 
 CREATE TABLE resident_unit (
-                                 user_id BIGINT REFERENCES users(id),
-                                 unit_id BIGINT REFERENCES units(id),
-                                 PRIMARY KEY (user_id, unit_id)
+                               user_id BIGINT REFERENCES users(id),
+                               unit_id BIGINT REFERENCES units(id),
+                               PRIMARY KEY (user_id, unit_id)
 );

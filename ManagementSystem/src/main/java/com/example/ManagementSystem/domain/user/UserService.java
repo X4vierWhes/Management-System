@@ -14,6 +14,8 @@ public interface UserService {
 
     List<User> getUsersStartsWith(String prefix);
 
+    List<UserDTO> getByIsActive(Boolean isActive);
+
     User getUser(String username);
 
     User save(SignUpDTO dto);
@@ -24,10 +26,11 @@ public interface UserService {
 
     User updatePassword(String username, String oldPasswd, String newPasswd);
 
+    User updateUser(String username, UserDTO dto);
+
     int shadowDelete(String username);
 
     void delete(String username);
-
 
     User create(UserRegistration data);
 }

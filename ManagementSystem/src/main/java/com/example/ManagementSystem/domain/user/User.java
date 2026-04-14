@@ -2,6 +2,7 @@ package com.example.ManagementSystem.domain.user;
 
 import com.example.ManagementSystem.application.auth.dto.SignUpDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
+import com.example.ManagementSystem.domain.unit.Unit;
 import com.example.ManagementSystem.domain.utils.Profile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -40,6 +42,14 @@ public class User {
     private LocalDateTime createdAt;
 
     private Boolean isActive = true;
+
+    @ManyToMany
+    @JoinTable(
+            name = "resident_unit",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "unit_id")
+    )
+    private List<Unit> units;
 
     public void updateUser(SignUpDTO dto) {
         setEmail(dto.email());

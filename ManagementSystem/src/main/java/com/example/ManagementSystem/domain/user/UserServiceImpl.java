@@ -36,6 +36,11 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
+    public List<UserDTO> getByIsActive(Boolean isActive) {
+        return userRepository.findAllByIsActive(isActive).stream().map(User::toDTO).toList();
+    }
+
+    @Override
     public User getUser(String username) {
         return userRepository.findByUsernameAndIsActive(username, true).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NO_CONTENT)
@@ -104,6 +109,27 @@ public class UserServiceImpl implements  UserService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "The old password is wrong!");
 
         user.setPassword(hashedPassword);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(String username, UserDTO dto) {
+        User user = this.getUser(username);
+
+        if(dto.email() == null ||dto.email().isBlank() )
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email cannot be empty!");
+
+        if(dto.username() == null ||dto.username().isBlank())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username cannot be empty!");
+
+        if(dto.profile()  == null || dto.profile().isBlank())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Profile cannot be empty!");
+
+        user.setEmail(dto.email());
+        user.setUsername(dto.username());
+        user.setProfile(Profile.valueOf(dto.profile().toUpperCase()));
+        user.setIsActive(dto.isActive());
+
         return userRepository.save(user);
     }
 
