@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,7 @@ public class Unit {
     private Block block;
 
     @ManyToMany(mappedBy = "units")
-    private List<User> residents;
+    private List<User> residents = new ArrayList<>();
 
     @Column(nullable = false)
     private int floor;

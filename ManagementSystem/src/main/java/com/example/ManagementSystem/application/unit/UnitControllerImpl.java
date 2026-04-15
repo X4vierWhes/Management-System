@@ -1,8 +1,11 @@
 package com.example.ManagementSystem.application.unit;
 
+import com.example.ManagementSystem.application.unit.dto.ResidentRequestDTO;
 import com.example.ManagementSystem.application.unit.dto.UnitDTO;
+import com.example.ManagementSystem.application.user.dto.UserDTO;
 import com.example.ManagementSystem.domain.unit.Unit;
 import com.example.ManagementSystem.domain.unit.UnitService;
+import com.example.ManagementSystem.domain.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
@@ -11,9 +14,11 @@ import java.util.List;
 @Controller
 public class UnitControllerImpl implements UnitController{
     private final UnitService unitService;
+    private final UserService userService;
 
-    public UnitControllerImpl(UnitService unitService) {
+    public UnitControllerImpl(UnitService unitService, UserService userService) {
         this.unitService = unitService;
+        this.userService = userService;
     }
 
 
@@ -25,11 +30,6 @@ public class UnitControllerImpl implements UnitController{
     @Override
     public ResponseEntity<UnitDTO> findById(Long id) {
         return  ResponseEntity.ok(UnitDTO.fromUnit(unitService.findById(id)));
-    }
-
-    @Override
-    public void save(Unit unit) {
-        unitService.save(unit);
     }
 
     @Override
@@ -60,6 +60,17 @@ public class UnitControllerImpl implements UnitController{
     @Override
     public ResponseEntity<Void> save(UnitDTO unit) {
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Unit> populateUnit(ResidentRequestDTO request) {
+        Unit unit = unitService.findByIdentification(request.unitIdentification());
+        if( unit == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(unitService.populate(unit, request.username()));
+
     }
 
 }

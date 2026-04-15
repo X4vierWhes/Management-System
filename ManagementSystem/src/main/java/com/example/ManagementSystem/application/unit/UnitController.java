@@ -1,5 +1,6 @@
 package com.example.ManagementSystem.application.unit;
 
+import com.example.ManagementSystem.application.unit.dto.ResidentRequestDTO;
 import com.example.ManagementSystem.application.unit.dto.UnitDTO;
 import com.example.ManagementSystem.domain.unit.Unit;
 import jakarta.validation.Valid;
@@ -10,8 +11,6 @@ import java.util.List;
 
 @RequestMapping("/units")
 public interface UnitController {
-
-    void save(Unit unit);
 
     @GetMapping
     ResponseEntity<List<UnitDTO>> findAll();
@@ -39,5 +38,10 @@ public interface UnitController {
 
     @PostMapping
     ResponseEntity<Void> save(@RequestBody @Valid UnitDTO unit);
+
+    @PostMapping("/resident")
+    ResponseEntity<Unit> populateUnit(@RequestBody @Valid ResidentRequestDTO request);
+
+
 
 }

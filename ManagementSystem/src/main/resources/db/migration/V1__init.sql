@@ -1,31 +1,31 @@
 CREATE TABLE users (
-                       id BIGSERIAL PRIMARY KEY,
-                       username VARCHAR(100) NOT NULL,
-                       email VARCHAR(100) UNIQUE NOT NULL,
-                       password VARCHAR(255) NOT NULL,
-                       profile VARCHAR(20) NOT NULL,
-                       is_active BOOLEAN DEFAULT TRUE,
-                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id BIGSERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    profile VARCHAR(20) NOT NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE blocks (
-                        id BIGSERIAL PRIMARY KEY,
-                        identification VARCHAR(10) NOT NULL,
-                        amt_floors INT NOT NULL,
-                        apt_per_floor INT NOT NULL
+    id BIGSERIAL PRIMARY KEY,
+    identification VARCHAR(10) NOT NULL,
+    amt_floors INT NOT NULL,
+    apt_per_floor INT NOT NULL
 );
 
 CREATE TABLE units (
-                          id BIGSERIAL PRIMARY KEY,
-                          block_id BIGINT REFERENCES blocks(id),
-                          identification VARCHAR(20) NOT NULL,
-                          floor INT NOT NULL,
-                          is_empty BOOLEAN DEFAULT TRUE
+    id BIGSERIAL PRIMARY KEY,
+    block_id BIGINT REFERENCES blocks(id),
+    identification VARCHAR(20) NOT NULL,
+    floor INT NOT NULL,
+    is_empty BOOLEAN DEFAULT TRUE
 
 );
 
 CREATE TABLE resident_unit (
-                               user_id BIGINT REFERENCES users(id),
-                               unit_id BIGINT REFERENCES units(id),
-                               PRIMARY KEY (user_id, unit_id)
+    user_id BIGINT REFERENCES users(id),
+    unit_id BIGINT REFERENCES units(id),
+    PRIMARY KEY (user_id, unit_id)
 );

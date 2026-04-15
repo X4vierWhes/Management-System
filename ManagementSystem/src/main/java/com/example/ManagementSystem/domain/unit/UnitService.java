@@ -1,7 +1,9 @@
 package com.example.ManagementSystem.domain.unit;
 
+import com.example.ManagementSystem.application.user.dto.UserDTO;
+import com.example.ManagementSystem.domain.user.User;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface UnitService {
     List<Unit> findByResidentId(Long id);
@@ -19,4 +21,6 @@ public interface UnitService {
     List<Unit> findByBlockId(Long blockId);
 
     List<Unit> findByFloorAndBlockId(Integer floor, Long blockId);
+
+    Unit populate(Unit unit, String username);
 }

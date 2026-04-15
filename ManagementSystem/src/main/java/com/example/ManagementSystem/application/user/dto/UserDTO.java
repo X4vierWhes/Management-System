@@ -24,4 +24,11 @@ public record UserDTO(
     public static UserDTO fromSignUpDTO(SignUpDTO signUpDTO) {
         return new UserDTO(signUpDTO.username(), signUpDTO.email(),signUpDTO.profile().name().toUpperCase(), true, LocalDateTime.now());
     }
+
+    public static User toUser(UserDTO dto){
+        User user = new User();
+        user.setUsername(dto.username());
+        user.setEmail(dto.email());
+        return user;
+    }
 }
