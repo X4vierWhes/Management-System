@@ -3,6 +3,7 @@ package com.example.ManagementSystem.domain.user;
 import com.example.ManagementSystem.application.auth.dto.SignInDTO;
 import com.example.ManagementSystem.application.auth.dto.SignUpDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
+import com.example.ManagementSystem.domain.ticket.type.TicketType;
 import com.example.ManagementSystem.domain.utils.PasswordRegex;
 import com.example.ManagementSystem.domain.utils.Profile;
 import com.example.ManagementSystem.domain.utils.UserRegistration;
@@ -168,5 +169,20 @@ public class UserServiceImpl implements  UserService {
         newUser.setCreatedAt(java.time.LocalDateTime.now());
 
         return userRepository.save(newUser);
+    }
+
+    @Override
+    public List<User> findBySpecializedTypes_Title(String title) {
+        return userRepository.findBySpecializedTypes_Title(title);
+    }
+
+    @Override
+    public List<User> findBySpecializedTypes_Id(Long typeId) {
+        return userRepository.findBySpecializedTypes_Id(typeId);
+    }
+
+    @Override
+    public List<TicketType> findSpecialtiesByUserId(Long userId) {
+        return userRepository.findSpecialtiesByUserId(userId);
     }
 }

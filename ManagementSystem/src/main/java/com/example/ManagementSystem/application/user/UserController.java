@@ -1,5 +1,6 @@
 package com.example.ManagementSystem.application.user;
 
+import com.example.ManagementSystem.application.ticket.dto.TicketDTO;
 import com.example.ManagementSystem.application.user.dto.PasswordDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
 import com.example.ManagementSystem.domain.utils.UserRegistration;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequestMapping("/users")
 public interface UserController {
 
-    @GetMapping("/{username}")
+    @GetMapping("/{prefix}")
     ResponseEntity<List<UserDTO>> getAllByPrefix(@RequestParam String prefix);
 
     @GetMapping("/all")
@@ -25,6 +26,9 @@ public interface UserController {
 
     @PostMapping("/{username}/update")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String username, @RequestBody UserDTO data);
+
+    @PostMapping("/{username}/ticket")
+    ResponseEntity<Void> createTicket(@RequestBody TicketDTO ticketDTO, @PathVariable String username);
 
     @PatchMapping("/{username}/update/password")
     ResponseEntity<UserDTO> updatePasswd(@PathVariable String username, @RequestBody PasswordDTO dto);

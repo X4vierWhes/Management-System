@@ -1,5 +1,6 @@
 package com.example.ManagementSystem.application.user;
 
+import com.example.ManagementSystem.application.ticket.dto.TicketDTO;
 import com.example.ManagementSystem.application.user.dto.PasswordDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
 import com.example.ManagementSystem.domain.user.User;
@@ -30,6 +31,11 @@ public class UserControllerImpl implements UserController {
     public ResponseEntity<UserDTO> updateUser(String username, UserDTO data) {
         User newUser = userService.updateUser(username, data);
         return ResponseEntity.ok(UserDTO.fromUser(newUser));
+    }
+
+    @Override
+    public ResponseEntity<Void> createTicket(TicketDTO ticketDTO, String username) {
+        return null;
     }
 
     @Override

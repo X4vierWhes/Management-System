@@ -1,5 +1,6 @@
 package com.example.ManagementSystem.domain.user;
 
+import com.example.ManagementSystem.domain.ticket.type.TicketType;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -27,5 +28,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.username ilike :prefix and u.isActive = true")
     List<User> findByUsernamePrefix(String prefix);
 
+    List<User> findBySpecializedTypes_Title(String title);
+
+    List<User> findBySpecializedTypes_Id(Long typeId);
+
+    @Query("SELECT u.specializedTypes FROM User u WHERE u.id = :userId")
+    List<TicketType> findSpecialtiesByUserId(Long userId);
 
 }

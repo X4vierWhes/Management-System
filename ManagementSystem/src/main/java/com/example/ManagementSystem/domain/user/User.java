@@ -2,6 +2,7 @@ package com.example.ManagementSystem.domain.user;
 
 import com.example.ManagementSystem.application.auth.dto.SignUpDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
+import com.example.ManagementSystem.domain.ticket.type.TicketType;
 import com.example.ManagementSystem.domain.unit.Unit;
 import com.example.ManagementSystem.domain.utils.Profile;
 import jakarta.persistence.*;
@@ -10,8 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +51,13 @@ public class User {
     )
     private List<Unit> units = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "staff_specialties",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "ticket_type_id")
+    )
+    private List<TicketType> specializedTypes = new java.util.ArrayList<>();
 
     public void updateUser(SignUpDTO dto) {
         setEmail(dto.email());

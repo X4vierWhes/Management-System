@@ -3,6 +3,7 @@ package com.example.ManagementSystem.domain.user;
 import com.example.ManagementSystem.application.auth.dto.SignInDTO;
 import com.example.ManagementSystem.application.auth.dto.SignUpDTO;
 import com.example.ManagementSystem.application.user.dto.UserDTO;
+import com.example.ManagementSystem.domain.ticket.type.TicketType;
 import com.example.ManagementSystem.domain.utils.UserRegistration;
 
 
@@ -33,4 +34,10 @@ public interface UserService {
     void delete(String username);
 
     User create(UserRegistration data);
+
+    List<User> findBySpecializedTypes_Title(String title);
+
+    List<User> findBySpecializedTypes_Id(Long typeId);
+
+    List<TicketType> findSpecialtiesByUserId(Long userId);
 }
