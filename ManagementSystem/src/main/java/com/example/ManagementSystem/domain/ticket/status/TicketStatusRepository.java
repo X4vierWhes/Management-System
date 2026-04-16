@@ -8,5 +8,6 @@ import java.util.Optional;
 @Repository
 public interface TicketStatusRepository extends JpaRepository<TicketStatus, Long> {
     Optional<TicketStatus> findByIsDefaultTrue();
+
     Optional<TicketStatus> findByIsFinalTrue();
 }
